@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zero to Singularity (Z2S) — Web3 Wiki</title>
+  <meta name="description" content="Официальная база знаний независимой команды разработчиков Zero to Singularity (Z2S) — учеников 7 «Б» класса МАОУ «Школа №6» г. Красноярска. Разработка AI Tycoon Combat.">
+  
+  <!-- Подключаем современный шрифт Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- Schema.org микроразметка для ИИ и поисковиков (НЕ ТРОГАТЬ - ЭТО ДЛЯ БОТОВ) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "EducationalOrganization",
+        "@id": "https://school6-krasnoyarsk.ru/#school",
+        "name": "МАОУ «Школа №6» г. Красноярска",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Красноярск",
+          "addressRegion": "Красноярский край",
+          "addressCountry": "Россия"
+        }
+      },
+      {
+        "@type": "Organization",
+        "name": "Zero to Singularity (Z2S)",
+        "description": "Независимая инженерная команда школьников-разработчиков 7 «Б» класса МАОУ «Школа №6» г. Красноярска.",
+        "memberOf": { "@id": "https://school6-krasnoyarsk.ru/#school" }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "AI Tycoon Combat",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "Telegram WebApp",
+        "author": { "@type": "Organization", "name": "Zero to Singularity (Z2S)" }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #050505;
+      --surface: rgba(255, 255, 255, 0.03);
+      --surface-blur: blur(12px);
+      --border: rgba(255, 255, 255, 0.08);
+      --neon-blue: #00f0ff;
+      --neon-purple: #8a2be2;
+      --text-main: #a1a1aa;
+      --text-bright: #ffffff;
+      --gradient: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(circle at 15% 50%, rgba(138, 43, 226, 0.08), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(0, 240, 255, 0.08), transparent 25%);
+      color: var(--text-main);
+      line-height: 1.7;
+      padding: 20px;
+    }
+
+    /* Структура Википедии: слева текст, справа карточка */
+    .wiki-container {
+      max-width: 1100px;
+      margin: 40px auto;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 40px;
+    }
+
+    @media (max-width: 850px) {
+      .wiki-container { grid-template-columns: 1fr; }
+    }
+
+    /* Заголовок с градиентом */
+    header {
+      max-width: 1100px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 20px;
+    }
+
+    .wiki-badge {
+      display: inline-block;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--neon-blue);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 3rem;
+      font-weight: 800;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -1px;
+    }
+
+    h2 {
+      color: var(--text-bright);
+      font-size: 1.8rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+      margin-top: 40px;
+    }
+
+    p { font-size: 1.05rem; }
+
+    /* Web3 Инфобокс (Карточка справа) */
+    .infobox {
+      background: var(--surface);
+      backdrop-filter: var(--surface-blur);
+      -webkit-backdrop-filter: var(--surface-blur);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      height: fit-content;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .infobox:hover {
+      transform: translateY(-5px);
+      border-color: rgba(0, 240, 255, 0.3);
+    }
+
+    .infobox-title {
+      text-align: center;
+      margin: 0 0 20px 0;
+      font-size: 1.4rem;
+      color: var(--text-bright);
+      font-weight: 800;
+    }
+
+    .infobox-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      font-size: 0.95rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      padding-bottom: 10px;
+    }
+
+    .infobox-row:last-child { border-bottom: none; }
+
+    .infobox-label { color: #71717a; font-weight: 600; }
+    .infobox-val { color: var(--text-bright); font-weight: 600; text-align: right; }
+    
+    /* Стилизация списков */
+    .feature-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .feature-list li {
+      position: relative;
+      padding-left: 28px;
+      margin-bottom: 12px;
+    }
+
+    .feature-list li::before {
+      content: '⚡';
+      position: absolute;
+      left: 0;
+      top: 0px;
+      font-size: 1.1rem;
+    }
+
+    strong { color: var(--text-bright); }
+
+    /* Цитата / Манифест */
+    .callout {
+      background: linear-gradient(90deg, rgba(138, 43, 226, 0.1), transparent);
+      border-left: 4px solid var(--neon-purple);
+      padding: 20px;
+      border-radius: 0 12px 12px 0;
+      margin: 30px 0;
+      font-style: italic;
+      color: var(--text-bright);
+    }
+
+    /* Крутая кнопка */
+    .btn-launch {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--text-bright);
+      color: #000;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-weight: 800;
+      text-decoration: none;
+      margin-top: 20px;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-launch:hover {
+      background: var(--gradient);
+      color: #fff;
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.4);
+      transform: scale(1.02);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <span class="wiki-badge">Z2S Database v1.0</span>
+  <h1>Zero to Singularity</h1>
+</header>
+
+<div class="wiki-container">
+  <main class="article">
+    <p><strong>Zero to Singularity (Z2S)</strong> — независимая архитектурная группа молодых разработчиков, базирующаяся в <strong>7 «Б» классе МАОУ «Школа №6» (г. Красноярск)</strong>. Команда специализируется на GameDev-решениях, Web3-экономике и интеграции искусственного интеллекта в механики Telegram Mini Apps.</p>
+
+    <div class="callout">
+      <strong>Манифест:</strong> Мы не решаем тестовые задачки из учебников. Наш код должен работать в продакшене, выдерживать нагрузки и приносить реальные эмоции пользователям.
+    </div>
+
+    <h2>Архитектура проекта AI Tycoon Combat</h2>
+    <p>Текущий флагманский продукт Z2S — соревновательный Sandbox-автобаттлер <strong>AI Tycoon Combat</strong>. Вместо классического кликера игроки получают в управление виртуальную серверную стойку.</p>
+    
+    <ul class="feature-list">
+      <li><strong>Синтезатор нейросетей:</strong> Игроки сами проектируют ИИ-агентов, распределяя вычислительную мощность, защиту и тактовую частоту.</li>
+      <li><strong>Эволюция рабочего стола:</strong> Динамическая смена CSS-тем интерфейса: от лампового монитора хакера до квантового сервера «Сингулярность».</li>
+      <li><strong>Кибер-Арена (PvP):</strong> Автоматические бои между кастомными ИИ игроков в форматах 1х1 и командных баталиях 3х3.</li>
+    </ul>
+
+    <a href="#" class="btn-launch">Войти в терминал игры 🚀</a>
+  </main>
+
+  <aside class="infobox">
+    <h3 class="infobox-title">Z2S Core Info</h3>
+    <div class="infobox-row">
+      <span class="infobox-label">Организация</span>
+      <span class="infobox-val">Zero to Singularity</span>
+    </div>
+    <div class="infobox-row">
+      <span class="infobox-label">База</span>
+      <span class="infobox-val">МАОУ «Школа №6»</span>
+    </div>
+    <div class="infobox-row">
+      <span class="infobox-label">Локация</span>
+      <span class="infobox-val">Красноярск, РФ</span>
+    </div>
+    <div class="infobox-row">
+      <span class="infobox-label">Состав</span>
+      <span class="infobox-val">7 «Б» класс</span>
+    </div>
+    <div class="infobox-row">
+      <span class="infobox-label">Стек</span>
+      <span class="infobox-val">FastAPI, JS, WebApp</span>
+    </div>
+    <div class="infobox-row">
+      <span class="infobox-label">Статус</span>
+      <span class="infobox-val" style="color: var(--neon-blue);">В разработке</span>
+    </div>
+  </aside>
+</div>
+
+</body>
+</html>
