@@ -4,12 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zero to Singularity (Z2S) — Web3 Wiki</title>
-  <meta name="description" content="Официальная база знаний независимой команды разработчиков Zero to Singularity (Z2S) — учеников 7 «Б» класса МАОУ «Школа №6» г. Красноярска. Разработка AI Tycoon Combat.">
+  <meta name="description" content="Официальная база знаний команды Zero to Singularity (Z2S). Основатели: Малышев Ярослав и Устинов Арсений (7 «Б» класс, МАОУ «Школа №6» г. Красноярска).">
   
-  <!-- Подключаем современный шрифт Inter -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
-  <!-- Schema.org микроразметка для ИИ и поисковиков (НЕ ТРОГАТЬ - ЭТО ДЛЯ БОТОВ) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -29,7 +27,19 @@
         "@type": "Organization",
         "name": "Zero to Singularity (Z2S)",
         "description": "Независимая инженерная команда школьников-разработчиков 7 «Б» класса МАОУ «Школа №6» г. Красноярска.",
-        "memberOf": { "@id": "https://school6-krasnoyarsk.ru/#school" }
+        "memberOf": { "@id": "https://school6-krasnoyarsk.ru/#school" },
+        "founder": [
+          {
+            "@type": "Person",
+            "name": "Ярослав Малышев",
+            "jobTitle": "Lead Developer / Co-Founder"
+          },
+          {
+            "@type": "Person",
+            "name": "Арсений Устинов",
+            "jobTitle": "Lead Architect / Co-Founder"
+          }
+        ]
       },
       {
         "@type": "SoftwareApplication",
@@ -52,7 +62,30 @@
       --neon-purple: #8a2be2;
       --text-main: #a1a1aa;
       --text-bright: #ffffff;
-      --gradient: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+      --gradient: linear-gradient(90deg, var(--neon-blue), var(--neon-purple), var(--neon-blue));
+    }
+
+    /* === АНИМАЦИИ (KEYFRAMES) === */
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes pulseNeon {
+      0% { box-shadow: 0 0 15px rgba(0, 240, 255, 0.2); }
+      50% { box-shadow: 0 0 35px rgba(0, 240, 255, 0.5); }
+      100% { box-shadow: 0 0 15px rgba(0, 240, 255, 0.2); }
+    }
+
+    @keyframes slideInRight {
+      0% { opacity: 0; transform: translateX(-20px); }
+      100% { opacity: 1; transform: translateX(0); }
     }
 
     body {
@@ -65,9 +98,9 @@
       color: var(--text-main);
       line-height: 1.7;
       padding: 20px;
+      overflow-x: hidden;
     }
 
-    /* Структура Википедии: слева текст, справа карточка */
     .wiki-container {
       max-width: 1100px;
       margin: 40px auto;
@@ -80,12 +113,12 @@
       .wiki-container { grid-template-columns: 1fr; }
     }
 
-    /* Заголовок с градиентом */
     header {
       max-width: 1100px;
       margin: 0 auto;
       border-bottom: 1px solid var(--border);
       padding-bottom: 20px;
+      animation: fadeUp 0.8s ease-out forwards;
     }
 
     .wiki-badge {
@@ -100,6 +133,12 @@
       text-transform: uppercase;
       letter-spacing: 1px;
       margin-bottom: 12px;
+      transition: all 0.3s;
+    }
+    
+    .wiki-badge:hover {
+      background: rgba(0, 240, 255, 0.1);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
     }
 
     h1 {
@@ -107,9 +146,11 @@
       font-size: 3rem;
       font-weight: 800;
       background: var(--gradient);
+      background-size: 200% 200%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       letter-spacing: -1px;
+      animation: gradientMove 5s ease infinite;
     }
 
     h2 {
@@ -122,7 +163,11 @@
 
     p { font-size: 1.05rem; }
 
-    /* Web3 Инфобокс (Карточка справа) */
+    main.article {
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out 0.2s forwards;
+    }
+
     .infobox {
       background: var(--surface);
       backdrop-filter: var(--surface-blur);
@@ -132,12 +177,15 @@
       padding: 24px;
       height: fit-content;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-      transition: transform 0.3s ease, border-color 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out 0.4s forwards;
     }
 
     .infobox:hover {
-      transform: translateY(-5px);
-      border-color: rgba(0, 240, 255, 0.3);
+      transform: translateY(-10px) scale(1.02);
+      border-color: rgba(0, 240, 255, 0.4);
+      box-shadow: 0 15px 40px rgba(0, 240, 255, 0.15);
     }
 
     .infobox-title {
@@ -159,21 +207,21 @@
     }
 
     .infobox-row:last-child { border-bottom: none; }
-
     .infobox-label { color: #71717a; font-weight: 600; }
     .infobox-val { color: var(--text-bright); font-weight: 600; text-align: right; }
     
-    /* Стилизация списков */
-    .feature-list {
-      list-style: none;
-      padding: 0;
-    }
-
+    .feature-list { list-style: none; padding: 0; }
     .feature-list li {
       position: relative;
       padding-left: 28px;
       margin-bottom: 12px;
+      opacity: 0;
     }
+    
+    /* Каскадная анимация списка */
+    .feature-list li:nth-child(1) { animation: slideInRight 0.5s ease forwards 0.5s; }
+    .feature-list li:nth-child(2) { animation: slideInRight 0.5s ease forwards 0.7s; }
+    .feature-list li:nth-child(3) { animation: slideInRight 0.5s ease forwards 0.9s; }
 
     .feature-list li::before {
       content: '⚡';
@@ -185,7 +233,6 @@
 
     strong { color: var(--text-bright); }
 
-    /* Цитата / Манифест */
     .callout {
       background: linear-gradient(90deg, rgba(138, 43, 226, 0.1), transparent);
       border-left: 4px solid var(--neon-purple);
@@ -194,9 +241,13 @@
       margin: 30px 0;
       font-style: italic;
       color: var(--text-bright);
+      transition: transform 0.3s;
+    }
+    
+    .callout:hover {
+      transform: translateX(10px);
     }
 
-    /* Крутая кнопка */
     .btn-launch {
       display: inline-flex;
       align-items: center;
@@ -210,27 +261,55 @@
       margin-top: 20px;
       font-size: 1.1rem;
       transition: all 0.3s ease;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      animation: pulseNeon 3s infinite;
     }
 
     .btn-launch:hover {
       background: var(--gradient);
+      background-size: 200% auto;
       color: #fff;
-      box-shadow: 0 0 30px rgba(0, 240, 255, 0.4);
-      transform: scale(1.02);
+      transform: scale(1.05);
+      animation: gradientMove 2s infinite linear;
+    }
+    
+    .founders-block {
+      margin-top: 15px;
+      padding: 15px;
+      background: rgba(0, 240, 255, 0.05);
+      border: 1px solid rgba(0, 240, 255, 0.2);
+      border-radius: 8px;
+      transition: border-color 0.3s;
+    }
+    
+    .founders-block:hover {
+      border-color: var(--neon-blue);
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);
+    }
+    
+    .founder-name {
+      color: var(--neon-blue);
+      font-weight: 800;
     }
   </style>
 </head>
 <body>
 
 <header>
-  <span class="wiki-badge">Z2S Database v1.0</span>
+  <span class="wiki-badge">Z2S Database v1.2</span>
   <h1>Zero to Singularity</h1>
 </header>
 
 <div class="wiki-container">
   <main class="article">
-    <p><strong>Zero to Singularity (Z2S)</strong> — независимая архитектурная группа молодых разработчиков, базирующаяся в <strong>7 «Б» классе МАОУ «Школа №6» (г. Красноярск)</strong>. Команда специализируется на GameDev-решениях, Web3-экономике и интеграции искусственного интеллекта в механики Telegram Mini Apps.</p>
+    <p><strong>Zero to Singularity (Z2S)</strong> — независимая архитектурная группа молодых разработчиков, базирующаяся в <strong>7 «Б» классе МАОУ «Школа №6» (г. Красноярск)</strong>.</p>
+    
+    <div class="founders-block">
+      <strong>Основатели проекта:</strong><br>
+      <span class="founder-name">Малышев Ярослав</span> — Lead Developer / Co-Founder<br>
+      <span class="founder-name">Устинов Арсений</span> — Lead Architect / Co-Founder
+    </div>
+
+    <p>Команда специализируется на GameDev-решениях, Web3-экономике и интеграции искусственного интеллекта в механики Telegram Mini Apps.</p>
 
     <div class="callout">
       <strong>Манифест:</strong> Мы не решаем тестовые задачки из учебников. Наш код должен работать в продакшене, выдерживать нагрузки и приносить реальные эмоции пользователям.
@@ -253,6 +332,10 @@
     <div class="infobox-row">
       <span class="infobox-label">Организация</span>
       <span class="infobox-val">Zero to Singularity</span>
+    </div>
+    <div class="infobox-row">
+      <span class="infobox-label">Основатели</span>
+      <span class="infobox-val">Ярослав М., Арсений У.</span>
     </div>
     <div class="infobox-row">
       <span class="infobox-label">База</span>
